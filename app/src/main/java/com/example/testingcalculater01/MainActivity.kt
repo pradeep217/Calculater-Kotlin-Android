@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         //textView
         resultTextView = findViewById(R.id.textView1)
         operationTextView = findViewById(R.id.textView2)
@@ -43,13 +41,12 @@ class MainActivity : AppCompatActivity() {
         var bracketButton: Button = findViewById(R.id.buttonBracket)
         var persentageButton: Button = findViewById(R.id.buttonPercentage)
         var divideButton: Button = findViewById(R.id.buttonDivide)
-        var addButton: Button = findViewById(R.id.buttonAdd)
+        var addButton: TextView = findViewById(R.id.buttonAdd)
         var subtractionButton: Button = findViewById(R.id.buttonSubtraction)
         var multiplyButton: Button = findViewById(R.id.buttonMultiply)
         var equalButton: Button = findViewById(R.id.buttonEqual)
         var pointButton: Button = findViewById(R.id.buttonPoint)
         var backButton: Button = findViewById(R.id.buttonBack)
-
 
 
         //numbers
@@ -94,7 +91,8 @@ class MainActivity : AppCompatActivity() {
             appendonExpresstion("/", false)
         }
         addButton.setOnClickListener {
-            appendonExpresstion("+", false)
+            Log.d("add button","working")
+            appendonExpresstion("+", true)
         }
         subtractionButton.setOnClickListener {
             appendonExpresstion("-", false)
@@ -107,16 +105,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         clearButton.setOnClickListener {
-            resultTextView.text =""
-            operationTextView.text=""
+            resultTextView.text = ""
+            operationTextView.text = ""
         }
         backButton.setOnClickListener {
             var string = operationTextView.text.toString()
-             if (string.isNotEmpty())
-             {
-                 operationTextView.text = string.substring(0, string.length-1)
-             }
-            resultTextView.text =""
+            if (string.isNotEmpty()) {
+                operationTextView.text = string.substring(0, string.length - 1)
+            }
+            resultTextView.text = ""
         }
         equalButton.setOnClickListener {
             try {
@@ -124,21 +121,19 @@ class MainActivity : AppCompatActivity() {
                 val result = exception.evaluate()
                 val longResult = result.toLong()
                 if (result == longResult.toDouble())
-                    resultTextView.text =longResult.toString()
+                    resultTextView.text = longResult.toString()
                 else
-                    resultTextView.text= result.toString()
-            }catch (e:Exception){
-                Log.d("Exception","message: "+e.message)
+                    resultTextView.text = result.toString()
+            } catch (e: Exception) {
+                Log.d("Exception", "message: " + e.message)
             }
         }
     }
 
-
     fun appendonExpresstion(string: String, canClear: Boolean) {
 
-        if (resultTextView.text.isNotEmpty())
-        {
-            operationTextView.text=""
+        if (resultTextView.text.isNotEmpty()) {
+            operationTextView.text = ""
         }
         if (canClear) {
             resultTextView.text = ""
@@ -149,6 +144,4 @@ class MainActivity : AppCompatActivity() {
             resultTextView.text = ""
         }
     }
-
-
 }
